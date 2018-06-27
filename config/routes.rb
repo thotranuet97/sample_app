@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'comment/new'
+
+  get 'comment/show'
+
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -12,13 +16,14 @@ Rails.application.routes.draw do
   get 'help' => 'static_pages#help'
   get 'about' => 'static_pages#about'
   get 'signup' => 'users#new'
-  resources :users
+  resources :users 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :microposts,          only: [:create, :destroy]
+  resources :microposts,          only: [:create, :destroy, :show]
+  resources :comments
   resources :users do
     member do
       get :following, :followers

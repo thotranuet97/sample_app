@@ -18,10 +18,18 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+  def show
+    @micropost = Micropost.find(params[:id])
+    @comments = @micropost.comments.all
+    @comment = @micropost.comments.build
+  end
+    
+
+
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content, :picture)
+      params.require(:micropost).permit(:title, :content, :picture)
     end
 
     def correct_user
